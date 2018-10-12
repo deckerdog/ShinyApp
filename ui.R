@@ -1,19 +1,33 @@
 
-
-fluidPage(
-  titlePanel("Global Electricity(kWh - HM)"),
+shinyUI(
+dashboardPage(
+  dashboardHeader(title = "Global Electricity(kWh - HM)"),
   
-  sidebarLayout(
+  dashboardSidebar(
     
-    sidebarPanel(
+    sidebarUserPanel('by Phil Hopen'),
+    
+    sidebarMenu(
+      menuItem("Production", tabName = "prod", icon = icon("map")),
+      menuItem("Consumption", tabName = "con", icon = icon("database"))),
       
       sliderInput('yearRange', 'Range of Years:', min = 1994, 
                   max = 2014, value = c(1994,2014), sep = "")
     ),
     
-    mainPanel(
-      plotlyOutput("RenewYRange"))
-  ))
+  
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "prod",
+    fluidPage(
+      fillPage(plotlyOutput("RenewYRange", height = '100%'))
+  )),
+  tabItem(tabName = "con",
+          fluidPage(
+            fillPage(plotlyOutput("ConsYRange", height = '100%'))
+          ))
+  )
+)))
   
   
   
