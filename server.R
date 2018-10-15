@@ -1,7 +1,7 @@
 
 
 
-function(input, output) {
+function(input, output, session) {
   
  choice <- reactive({input$chlomaps})
 
@@ -36,7 +36,6 @@ function(input, output) {
       ) %>%
       colorbar(title = "kWh - Million") %>%
       layout(
-        title = 'Global Renewable Electricity Production',
         geo = g
       )
   
@@ -74,7 +73,20 @@ function(input, output) {
   })
   
   
-   combo_filt <- reactive({
+  observe({
+    
+    country2 <- unique(combo %>%
+                     filter(country_or_area != input$country1) %>%
+                     .$country_or_area)
+    
+    updateSelectizeInput(
+      session,'country2',
+      choices = sort(country2),
+      selected = country2[21])
+  })
+  
+  
+  combo_filt <- reactive({
     filter(combo, year >= input$yearRange[1], year <= input$yearRange[2]) %>% 
     filter(.,country_or_area == input$country1 | country_or_area == input$country2 ) %>% 
     select_(.,.dots = c('year', 'alpha.3', 'country_or_area', 'unit', input$energy, 'Total_Consumption')) %>% 
@@ -83,6 +95,15 @@ function(input, output) {
     
     
   output$comp <- renderPlot(ggplot(combo_filt(), aes(x = year, y = prop, colour = country_or_area))+
-    geom_line() + geom_point())
+                              geom_line() + geom_point() + theme(plot.subtitle = element_text(vjust = 1), 
+                                                                 plot.caption = element_text(vjust = 1), 
+                                                                 axis.line = element_line(colour = "azure4", 
+                                                                                          linetype = "solid"), panel.grid.major = element_line(colour = "darkseagreen3"), 
+                                                                 panel.grid.minor = element_line(colour = "darkseagreen3"), 
+                                                                 plot.title = element_text(size = 18, 
+                                                                                           hjust = 0.5), panel.background = element_rect(fill = "azure2"), 
+                                                                 legend.key = element_rect(fill = "white"), 
+                                                                 legend.background = element_rect(fill = "white")) +labs(title = "Renewable Electricity / Consumption", 
+                                                                                                                         x = "Year", y = "%", colour = "Country"))
   
 }

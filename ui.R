@@ -22,16 +22,21 @@ shinyUI(
                                               'Nuclear' = 'nuclear_electricity',
                                               'Solar' = 'solar_electricity',
                                               'Marine' = 'tide_wave_and_ocean_electricity',
-                                              'Wind' = 'wind_electricity'))),
+                                              'Wind' = 'wind_electricity'),
+                                            selected = c('geothermal', 'hydro', 'nuclear_electricity',
+                                                         'solar_electricity', 'tide_wave_and_ocean_electricity',
+                                                         'wind_electricity'))),
       
         conditionalPanel("input.sidebarmenu == 'prop'",
                          selectizeInput(inputId = 'country1',
                                         label = 'Country 1: ',
-                                        choices = unique(combo$country_or_area))),
+                                        choices = sort(unique(combo$country_or_area)),
+                                        selected = 'United States')),
         conditionalPanel("input.sidebarmenu == 'prop'",
                          selectizeInput(inputId = 'country2',
                                         label = 'Country 2: ',
-                                        choices = unique(combo$country_or_area))),
+                                        choices = sort(unique(combo$country_or_area)),
+                                        selected = 'Angola')),
         
         
         
@@ -44,9 +49,12 @@ shinyUI(
     dashboardBody(
       tabItems(
         tabItem(tabName = "prod",
-                fluidPage(
-                  fillPage(plotlyOutput("both", height = '100%'))
-                )),
+                
+                fluidRow(
+                  column(3, offset = 5, titlePanel("Global Electricity"))),
+                fluidRow(
+                  plotlyOutput("both"))
+                ),
         tabItem(tabName = 'prop',
                 fluidPage(
                   fillPage(plotOutput('comp'))
