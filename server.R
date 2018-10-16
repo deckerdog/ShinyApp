@@ -216,7 +216,7 @@ output$avgBox <- renderInfoBox({
     infoBox('Avg. Proportion: ', HTML(paste0(unlist(combo_avg()[1,1]),' - ', combo_avg()[1,2], "%",br()),
                                      paste0(unlist(combo_avg()[2,1]),' - ', combo_avg()[2,2], "%",br())),
             
-            icon = icon("hand-o-down"),color = 'blue', fill = T)
+            icon = icon("hand-o-down"),color = 'purple', fill = T)
    
    
    })

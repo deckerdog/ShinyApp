@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(shinydashboard)
+library(dashboardthemes)
 
 
 energy_data <-  read.csv('./Final_Renewable_Stats.csv')

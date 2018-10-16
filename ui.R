@@ -1,5 +1,5 @@
 shinyUI(
-  dashboardPage(skin = 'green',
+  dashboardPage(
         
       dashboardHeader(title = "Global Electricity (1994 - 2014)", titleWidth = 350),
     
@@ -45,7 +45,11 @@ shinyUI(
     )),
     
 
-    dashboardBody(
+    dashboardBody( 
+      
+      shinyDashboardThemes(
+      theme = "onenote"),
+      
       tabItems(
         tabItem(tabName = "prod",
                 
