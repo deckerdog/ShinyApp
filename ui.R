@@ -1,21 +1,20 @@
 shinyUI(
   dashboardPage(skin = 'green',
         
-      dashboardHeader(title = "Global Electricity (kWh-M)"),
+      dashboardHeader(title = "Global Electricity (1994 - 2014)", titleWidth = 350),
     
       dashboardSidebar(
       
-      sidebarUserPanel('by Phil Hopen'),
-      
       sidebarMenu( id = 'sidebarmenu',
-        menuItem("Energy Maps", tabName = "prod", icon = icon("map")),
-        menuItem('Comparison', tabName = 'prop', icon = icon('map')),
+        menuItem("Maps", tabName = "prod", icon = icon("map")),
+        menuItem('Comparison', tabName = 'prop', icon = icon('line-chart')),
         conditionalPanel("input.sidebarmenu == 'prod'",
                          selectizeInput(inputId = 'chlomaps',
                                         label = 'Choose activity: ',
-                                        choices = c('Production', 'Consumption'))),
+                                        choices = c('Renewable Production', 'Total Consumption'))),
         
-        conditionalPanel("input.sidebarmenu == 'prop'",
+  
+        conditionalPanel("input.sidebarmenu == 'prop'|input.chlomaps == 'Renewable Production'",
                          checkboxGroupInput('energy', 'Choose electricity source: ',
                                             c('Geothermal' = 'geothermal',
                                               'Hydro' = 'hydro',
@@ -53,11 +52,15 @@ shinyUI(
                 fluidRow(
                   column(3, offset = 5, titlePanel("Global Electricity"))),
                 fluidRow(
-                  plotlyOutput("both"))
+                  plotlyOutput("both", height = '700px'))
                 ),
         tabItem(tabName = 'prop',
-                fluidPage(
-                  fillPage(plotOutput('comp'))
-                ))
+                fluidRow(
+                 column(6, offset = 4, h3("Renewable Electricity/Consumption"))),
+                fluidRow(
+                  plotOutput('comp')),
+                fluidRow(infoBoxOutput("maxBox"),
+                         infoBoxOutput("avgBox"),
+                         infoBoxOutput("minBox"))
       )
-    )))
+    ))))
