@@ -5,12 +5,12 @@ function(input, output, session) {
   
 #maps---------------------------------------------------------------------------------------------------------------
 choice <- reactive({input$chlomaps})
-
- 
 output$both <-
   renderPlotly({
   if (choice() == 'Renewable Production') {
- #Production data--------------------------------------------------------------------------------------------------
+    
+    
+#Production data--------------------------------------------------------------------------------------------------
     
     energy_data_sums <- filter(energy_data, year >= input$yearRange[1], year <= input$yearRange[2]) %>% 
       group_by(., alpha.3) %>% 
@@ -49,8 +49,10 @@ output$both <-
   energy_data_sums$hover <- lf
     
     
+  
+  
     
-  #Production chloropleth --------------------------------------------------------------------------------------- 
+#Production chloropleth --------------------------------------------------------------------------------------- 
     
   l <- list(color = toRGB("white"), width = 2)
     
@@ -70,6 +72,9 @@ output$both <-
         title = '\n Production \n',
         geo = g
       )
+  
+  
+  
   
   
 #Consumption chloropleth-----------------------------------------------------------------------------------------
@@ -104,6 +109,9 @@ output$both <-
       )}
   })
   
+
+
+
   
 #Reactive choices for Comparison tab----------------------------------------------------------------------------------
 observe({
@@ -124,7 +132,10 @@ combo_filt <- reactive({
     select_(.,.dots = c('year', 'alpha.3', 'country_or_area', 'unit', input$energy, 'Total_Consumption')) %>% 
     mutate(., prop = rowSums(select_(., .dots = input$energy))/Total_Consumption*100)
     })
-    
+   
+
+
+ 
   
 #Comparison page--------------------------------------------------------------------------------------------------
 output$comp <- renderPlot(ggplot(combo_filt(), aes(x = as.character(year), y = prop, group = country_or_area,
@@ -138,8 +149,13 @@ output$comp <- renderPlot(ggplot(combo_filt(), aes(x = as.character(year), y = p
                                                                                            hjust = 0.5), panel.background = element_rect(fill = "azure2"), 
                                                                  legend.key = element_rect(fill = "white"), 
                                                                  legend.background = element_rect(fill = "white")) +labs(x = "Year", y = "%", colour = "Country"))
-  
- 
+
+
+
+
+
+
+#top five countries
 mxbox <- reactive({
     filter(combo, year >= input$yearRange[1], year <= input$yearRange[2]) %>%  
     group_by(country_or_area) %>% 
@@ -155,7 +171,7 @@ mxbox <- reactive({
     select(.,Country = country_or_area, Renewables = prop)
   })
   
-  
+
 output$maxBox <- renderInfoBox({
     infoBox('Top 5 Countries: ',HTML(paste0(unlist(mxbox()[1,1]),' - ', mxbox()[1,2], "%",br()),
             paste0(unlist(mxbox()[2,1]),' - ', mxbox()[2,2], "%",br()),
@@ -164,8 +180,12 @@ output$maxBox <- renderInfoBox({
             paste0(unlist(mxbox()[5,1]),' - ', mxbox()[5,2], "%",br())),
             icon = icon("hand-o-up"), color = 'green', fill = T)
   })
-
    
+
+
+
+
+#bottom five countries
 mnbox <- reactive({
     filter(combo, year >= input$yearRange[1], year <= input$yearRange[2]) %>%  
        group_by(country_or_area) %>% 
@@ -182,7 +202,6 @@ mnbox <- reactive({
    })
    
    
-   
 output$minBox <- renderInfoBox({
     infoBox('Bottom 5 Countries: ',HTML(paste0(unlist(mnbox()[1,1]),' - ', mnbox()[1,2], "%",br()),
                                       paste0(unlist(mnbox()[2,1]),' - ', mnbox()[2,2], "%",br()),
@@ -191,10 +210,12 @@ output$minBox <- renderInfoBox({
                                       paste0(unlist(mnbox()[5,1]),' - ', mnbox()[5,2], "%",br())),
              icon = icon("hand-o-down"),color = 'red', fill = T)
    })
+  
+
+
    
    
-   
-   
+#avg. between countries   
 combo_avg <- reactive({
     filter(combo, year >= input$yearRange[1], year <= input$yearRange[2]) %>% 
        filter(.,country_or_area == input$country1 | country_or_area == input$country2 ) %>% 
@@ -216,7 +237,7 @@ output$avgBox <- renderInfoBox({
     infoBox('Avg. Proportion: ', HTML(paste0(unlist(combo_avg()[1,1]),' - ', combo_avg()[1,2], "%",br()),
                                      paste0(unlist(combo_avg()[2,1]),' - ', combo_avg()[2,2], "%",br())),
             
-            icon = icon("hand-o-down"),color = 'purple', fill = T)
+            icon = icon("percent"),color = 'purple', fill = T)
    
    
    })

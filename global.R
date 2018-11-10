@@ -3,6 +3,9 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(shinydashboard)
+#install.packages('devtools')
+#install_github("nik01010/dashboardthemes")
+#library(devtools)
 library(dashboardthemes)
 
 
