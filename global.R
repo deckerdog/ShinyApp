@@ -5,7 +5,7 @@ library(plotly)
 library(shinydashboard)
 #install.packages('devtools')
 #install_github("nik01010/dashboardthemes")
-#library(devtools)
+library(devtools)
 library(dashboardthemes)
 
 
