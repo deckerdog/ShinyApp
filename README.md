@@ -34,4 +34,4 @@ The second tab of the web tool allows us to directly compare two country’s yea
 
 
 
-In its current state, this project is best suited for high-level exploration of our international renewable energy portfolio. This could be expanded to include a wider range of energy sources for the user to choose from, along with an option to un-scale the data as a means of trading visual aesthetic for greater interpretability. In order to better visualize an expanded data set,  and do so with a higher level of rigor, the tool could be modified to incorporate a clustering algorithm for identifying countries with similar energy portfolios.
+In its current state, this project is best suited for high-level exploration of international renewable energy portfolio. In order to better visualize an expanded data set,  and do so with a higher level of rigor, the tool will be modified to incorporate a clustering algorithm for identifying countries with similar energy portfolios.
