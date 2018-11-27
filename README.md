@@ -4,7 +4,7 @@ https://decker.shinyapps.io/Renewables/
 
 
 
-The earth’s ever-growing population demands a proportionally increasing supply of available electricity. Conversely, modern climate science has revealed how damaging historical practices of energy production and consumption have been to the global ecosystem. Navigating these competing constraints has led to the political and technological advancement of renewable energy sources as competitive fuel alternatives. But how are these changes taking place? Which technologies are having the greatest impact on international energy portfolios? At what pace and in which countries? The purpose of this tool is to investigate these questions through visualization of production and consumption trends over the past 20 years.
+The earth’s ever-growing population demands a proportionally increasing supply of available electricity. Modern climate science has revealed how damaging historical practices of energy production and consumption have been to the global ecosystem. These competing constraints have led to the political and technological advancement of renewable energy sources as fuel alternatives. But how are these changes taking place? Which technologies are having the greatest impact on international energy portfolios? At what pace and in which countries? The purpose of this tool is to investigate these questions through visualization of production and consumption trends over the past 20 years.
 
 
 
