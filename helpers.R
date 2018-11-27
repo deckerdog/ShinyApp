@@ -3,7 +3,7 @@ library(plotly)
 
 
 #read in data from https://www.kaggle.com/unitednations/international-energy-statistics
-energy_data <-  read.csv(paste0(getwd(),'/Renewable_Data/all_energy_statistics.csv'))
+energy_data <-  read.csv(paste0(getwd(),'/all_energy_statistics.csv'))
 
 energy_data <- droplevels(energy_data)
 
@@ -46,8 +46,6 @@ energy_data <- select(ed_renew, - quantity_footnotes) %>%
 
 levels(energy_data$unit) <- "Kilowatt-hours, Million"
 
-write.csv(energy_data, file = "Renewable_Stats.csv", row.names = F)
-
 
 
 
@@ -56,9 +54,11 @@ write.csv(energy_data, file = "Renewable_Stats.csv", row.names = F)
 
 
 #read in ISO-3 codes for renewable map
-energy_data <-  read.csv('./Renewable_Stats.csv')
+
 
 enrg_countries <- distinct(energy_data, country_or_area)
+
+enrg_countries[order(enrg_countries$country_or_area),]
 
 codes = read.csv('https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv')
 
@@ -88,12 +88,36 @@ geos <- droplevels(geos)
 #write to file for Shiny interface
 renewables = merge(energy_data,geos, by.x = 'country_or_area', by.y = 'country_or_area', all.x = T) %>% 
   filter(.,!is.na(alpha.3))
-renewables <- droplevels(renewables)
+renewables$country_or_area <- as.character(renewables$country_or_area)
+renewables$alpha.3 <- as.character(renewables$alpha.3)
 
-write.csv(renewables, file = "./ShinyAttempt4/Final_Renewable_Stats.csv", row.names = F)
+
+#add unreported countries manually
+for (i in 1:20){
+  y = 1993+i
+  renewables[nrow(renewables)+i,] = c('Libya', y, 'Kilowatt-hours, Million', 0, 0, 0, 0, 0, 0, 0, 'LBY')
+}
 
 
-energy_data <-  read.csv('./ShinyAttempt4/Final_Renewable_Stats.csv')
+for (i in 1:20){
+  y = 1993+i
+  renewables[nrow(renewables)+i,] = c('Chad', y, 'Kilowatt-hours, Million', 0, 0, 0, 0, 0, 0, 0, 'TCD')
+}
+
+for (i in 1:20){
+  y = 1993+i
+  renewables[nrow(renewables)+i,] = c('Mongolia', y, 'Kilowatt-hours, Million', 0, 0, 0, 0, 0, 0, 0, 'MNG')
+}
+
+
+renewables$country_or_area <- as.factor(renewables$country_or_area)
+renewables$alpha.3 <- as.factor(renewables$alpha.3)
+
+
+write.csv(renewables, file = "./Final_Renewable_Stats.csv", row.names = F)
+
+
+energy_data <-  read.csv('./Final_Renewable_Stats.csv')
 
 
 
@@ -106,7 +130,7 @@ library(plotly)
 
 
 #Filter for consumptions data
-edc <-  read.csv(paste0(getwd(),'/Renewable_Data/all_energy_statistics.csv')) %>%
+edc <-  read.csv(paste0(getwd(),'/all_energy_statistics.csv')) %>%
   filter(.,year > 1993)
 edc <- droplevels(edc)
 
@@ -124,8 +148,6 @@ en_con <-  filter(edc, commodity_transaction %in% x$commodity_transaction) %>%
   ungroup(.)
 
 en_con = droplevels(en_con)
-write.csv(en_con, file = './ShinyAttempt2/Data/Consumption_Stats.csv', row.names = F)
-
 
 
 
@@ -171,20 +193,20 @@ geos_c <- droplevels(geos_c)
 
 
 #write to file for Shiny interface
-cons_data <- read.csv(paste0(getwd(),'./ShinyAttempt2/Data/Consumption_Stats.csv'))
+cons_data <- en_con
 
 consumptions = merge(cons_data, geos_c, by.x = 'country_or_area', by.y = 'country_or_area', all.x = T) %>% 
   filter(.,!is.na(alpha.3))
 consumptions <- droplevels(consumptions)
 
-write.csv(consumptions, file = "./ShinyAttempt4/Final_Consumption_Stats.csv", row.names = F)
+write.csv(consumptions, file = "./Final_Consumption_Stats.csv", row.names = F)
 
 #----------------------------------------------------------------------------------------------------
 
 #proportional energy by year
 
-energy_data <-  read.csv('./ShinyAttempt4/Final_Renewable_Stats.csv')
-consumption_data <- read.csv('./ShinyAttempt4/Final_Consumption_Stats.csv')
+energy_data <-  read.csv('./Final_Renewable_Stats.csv')
+consumption_data <- read.csv('./Final_Consumption_Stats.csv')
 
 combo = merge(energy_data, consumption_data, by = c('year', 'alpha.3'), all.x = T) %>% 
   group_by(., year, alpha.3) %>% 
@@ -201,7 +223,7 @@ combo = merge(energy_data, consumption_data, by = c('year', 'alpha.3'), all.x = 
             Total_Consumption = sum(Total_Consumption)) %>% 
   ungroup(.)
 
-write.csv(combo, file = "./ShinyAttempt5/Final_Combined_Stats.csv", row.names = F)
+write.csv(combo, file = "./Final_Combined_Stats.csv", row.names = F)
 
 #End of cleaning-------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------

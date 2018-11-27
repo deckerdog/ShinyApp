@@ -54,7 +54,7 @@ shinyUI(
         tabItem(tabName = "prod",
                 
                 fluidRow(
-                  column(3, offset = 5, titlePanel("Global Electricity"))),
+                  column(3, offset = 5, titlePanel("Global Electricity   (Millions of kWh)"))),
                 fluidRow(
                   plotlyOutput("both", height = '700px'))
                 ),

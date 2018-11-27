@@ -35,11 +35,13 @@ output$both <-
      ls <- data.frame()
      for (i in 1:nrow(nums)) { 
        for (j in 1:(ncol(nums)-1)) {
-         ls[i,j] <-paste0(names(nums)[j],'-', round(nums[i,j]/nums[i, ncol(nums)]*100, 2),'%', '\n')
+         ls[i,j] <-paste0(names(nums)[j],'-', round(nums[i,j]/(nums[i, ncol(nums)]+1)*100, 2),'%', '\n')
     }
   }
      
-     
+  
+  
+           
   lf = do.call("paste",ls)
   
   for (i in 1:length(lf)) {
@@ -67,7 +69,7 @@ output$both <-
         z = ~select_total, text = ~hover, locations = ~alpha.3,
         color = ~select_total, colors = 'Greens'
       ) %>%
-      colorbar(title = "Log10") %>%
+      colorbar(title = "Log10(kWh-M)") %>%
       layout(
         title = '\n Production \n',
         geo = g
