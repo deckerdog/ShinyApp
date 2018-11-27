@@ -9,7 +9,7 @@ The earth’s ever-growing population demands a proportionally increasing supply
 
 
 The first tab allows us to look at production and consumption by country, measured in millions of Kilowatt-Hours.
-![screenshot 11](https://user-images.githubusercontent.com/43554810/49057873-88c5f880-f1cf-11e8-8838-5700d773c897.png)
+![image](https://user-images.githubusercontent.com/43554810/49057959-db9fb000-f1cf-11e8-9378-4168499d2af5.png)
 
 
 The first dropdown menu option, ‘Production’, generates a choropleth map of the globe shaded according to renewable energy production. Countries with low renewable production have lighter shading while countries with higher renewable production have correspondingly darker shading. The user can decide a date range and a set of renewable technologies they want to visualize and the map will dynamically filter its output to meet these constraints.
