@@ -24,12 +24,12 @@ Mousing over a particular country will bring up a hovering menu breaking down th
 
 
 The second dropdown option, ‘Consumption’, generates a similar choropleth map of global electricity consumption over a given date range. Comparing the two maps gives a visual representation of how renewable energy sources have grown relative to the growth in demand. In both cases, the gross energy measurements have been scaled by log10 to account for a wide disparity between small and large countries in both energy consumption and production.
-![image](https://user-images.githubusercontent.com/43554810/49058078-61236000-f1d0-11e8-9338-23f6dc1c5375.png)
+![image](https://user-images.githubusercontent.com/43554810/49058503-4520be00-f1d2-11e8-8f73-19b6ea57e869.png)
 
 
 
 The second tab of the web tool allows us to directly compare two country’s year-to-year renewable energy production as a proportion of their total consumption. As with the ‘Production’ map, users have the ability to filter this output according to a certain year range and set of renewable technologies. This dynamic graph is supplemented by summary boxes stating the average proportion of renewables for the two chosen countries, as a well as a ranking for the top and bottom five countries under the given filter. This tab allows the user to look at individual countries more granularly and further investigate any trends perceived in the visualized data.
-![image](https://user-images.githubusercontent.com/43554810/49058155-cd9e5f00-f1d0-11e8-8921-5766eb5f65f6.png)
+![image](https://user-images.githubusercontent.com/43554810/49058533-6386b980-f1d2-11e8-89f4-24d7b8d89379.png)
 
 
 
