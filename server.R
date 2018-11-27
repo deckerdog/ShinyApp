@@ -104,7 +104,7 @@ output$both <-
         z = ~total, text = ~hover, locations = ~alpha.3,
         color = ~total, colors = 'Reds'
       ) %>%
-      colorbar(title = 'Log10') %>%
+      colorbar(title = 'Log10(kWh-M)') %>%
       layout(
         title = ' \n Consumption',
         geo = g

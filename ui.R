@@ -60,7 +60,7 @@ shinyUI(
                 ),
         tabItem(tabName = 'prop',
                 fluidRow(
-                 column(6, offset = 4, h3("Renewable Electricity/Consumption"))),
+                 column(6, offset = 4, h3("Renewable Electricity/Consumption    (%)"))),
                 fluidRow(
                   plotOutput('comp')),
                 fluidRow(infoBoxOutput("maxBox"),
